@@ -33,6 +33,12 @@ namespace ContactList
             }
             contactContext.EnsureSeedDataForContext();
             app.UseStatusCodePages();
+
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Entities.Contact, Models.ContactDto>();
+            });
+
             app.UseMvc();
 
             app.Run(async (context) =>

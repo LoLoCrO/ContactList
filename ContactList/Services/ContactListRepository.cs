@@ -21,7 +21,8 @@ namespace ContactList.Services
 
         public IEnumerable<Contact> GetContacts()
         {
-            return _context.Contacts.OrderBy(c => c.FirstName).ToList();
+            return _context.Contacts.Include(c => c.Numbers).Include(c => c.Tags).Include(c => c.Emails)
+                .OrderBy(c => c.FirstName).ToList();
         }
 
         public Email GetEmailForContact(int contactId, int emailId)
@@ -68,8 +69,6 @@ namespace ContactList.Services
             }
             return false;
         }
-
-
 
         public Tag GetTagForContact(int contactId, int tagId)
         {

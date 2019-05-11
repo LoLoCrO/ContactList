@@ -1,44 +1,33 @@
-﻿using ContactList.Entities;
+﻿using AutoMapper;
 using ContactList.Models;
 using ContactList.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace ContactList.Controllers
 {
-    public class DummyController : Controller
+    public class ContactController : Controller
     {
         private IContactListRepository _contactListRepository;
 
-        public DummyController(IContactListRepository contactListRepository)
+        public ContactController(IContactListRepository contactListRepository)
         {
             _contactListRepository = contactListRepository;
         }
 
         [HttpGet]
-        [Route("api/testbase")]
-        public IActionResult TestDatabase()
+        [Route("api/getallcontacts")]
+        public IActionResult GetAllContacts()
         {
-            return Ok();
-        }
+            var listOfContacts = _contactListRepository.GetContacts();
 
-        [HttpGet]
-        [Route("api/test2")]
-        public IActionResult Test2()
-        {
-            return BadRequest();
-        }
-
-        [HttpGet]
-        [Route("api/testdata")]
-        public JsonResult TestData()
-        {
-            return new JsonResult(new List<object>()
+            if (listOfContacts == null)
             {
-                new { id = 1, Name = "NYC"},
-                new { id = 2, Name = "LA"}
-            });
+                return NoContent();
+            }
+
+            var allContacts = Mapper.Map<IEnumerable<ContactDto>>(listOfContacts);
+            return Ok(allContacts);
         }
 
         [HttpGet]
@@ -46,13 +35,17 @@ namespace ContactList.Controllers
         public IActionResult GetUsersByTag(string tag)
         {
             var listOfContacts = _contactListRepository.GetUsersByTag(tag);
+
+            if(listOfContacts == null)
+            {
+                return NoContent();
+            }
+
             var result = new List<ContactDto>();
             var tagDto = new TagDto();
             var numberDto = new NumberDto();
             var emailDto = new EmailDto();
-            //Emails = emailDto.ListToDtos(contact.Emails),
-            //Numbers = numberDto.ListToDtos(contact.Numbers),
-            //Tags = tagDto.ListToDtos(contact.Tags)
+
             foreach (var contact in listOfContacts)
             {
                 result.Add(
