@@ -1,12 +1,10 @@
-﻿using ContactList.Entities;
-using System;
+using ContactList.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ContactList
 {
-    public static class ContactListExtensions
+  public static class ContactListExtensions
     {
         public static void EnsureSeedDataForContext(this ContactContext context)
         {

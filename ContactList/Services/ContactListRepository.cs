@@ -1,13 +1,13 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using ContactList.Entities;
+using ContactList.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactList.Services
 {
-    public class ContactListRepository : IContactListRepository
+  public class ContactListRepository : IContactListRepository
     {
         private ContactContext _context;
         public ContactListRepository(ContactContext context)
@@ -16,7 +16,8 @@ namespace ContactList.Services
         }
         public Contact GetContact(int ContactId)
         {
-            throw new NotImplementedException();
+            return _context.Contacts.Include(c => c.Tags).Include(c => c.Numbers).Include(c => c.Emails)
+              .Where(c => c.Id == ContactId).FirstOrDefault();
         }
 
         public IEnumerable<Contact> GetContacts()
@@ -25,9 +26,56 @@ namespace ContactList.Services
                 .OrderBy(c => c.FirstName).ToList();
         }
 
+        public void CreateContact(Contact contact) {
+            _context.Contacts.Add(contact);
+        }
+
+        public void DeleteContact(Contact contact)
+        {
+            _context.Contacts.Remove(contact);
+        }
+
+        public void UpdateContact(Contact contact)
+        {
+            _context.Contacts.Update(contact);
+        }
+
+        public IEnumerable<Contact> GetContactsByTag(string tag)
+        {
+          List<Tag> tagList = _context.Tags.Where(t => t.ContactTag == tag).ToList();
+
+          return _context.Contacts.Include(c => c.Tags).Include(c => c.Emails).Include(c => c.Numbers)
+              .Where(c => ContactExistsInTags(tagList, c.Id)).ToList();
+        }
+    
+        public IEnumerable<Contact> GetContactsByFirstName(string firstName)
+        {
+          return _context.Contacts.Where(c => c.FirstName == firstName).ToList();
+        }
+
+        public IEnumerable<Contact> GetContactsByLastName(string lastName)
+        {
+          return _context.Contacts.Where(c => c.LastName == lastName).ToList();
+        }
+
         public Email GetEmailForContact(int contactId, int emailId)
         {
-            throw new NotImplementedException();
+           return _context.Emails.Where(e => e.Id == contactId && e.Id == emailId).FirstOrDefault();
+        }
+
+        public void CreateEmail(Email email)
+        {
+            _context.Emails.Add(email);
+        }
+
+        public void DeleteEmail(Email email)
+        {
+            _context.Emails.Remove(email);
+        }
+
+        public void UpdateEmail(Email email)
+        {
+            _context.Emails.Update(email);
         }
 
         public IEnumerable<Email> GetEmailsForContact(int contactId)
@@ -37,7 +85,7 @@ namespace ContactList.Services
 
         public Number GetNumberForContact(int contactId, int numberId)
         {
-            throw new NotImplementedException();
+             return _context.Numbers.Where(n => n.ContactId == contactId && n.Id == numberId).FirstOrDefault();
         }
 
         public IEnumerable<Number> GetNumbersForContact(int contactId)
@@ -45,12 +93,29 @@ namespace ContactList.Services
             return _context.Numbers.Where(c => c.ContactId == contactId).ToList();
         }
 
-        public IEnumerable<Contact> GetUsersByTag(string tag)
+        public void CreateNumber(Number number)
         {
-            List<Tag> tagList = _context.Tags.Where(t => t.ContactTag == tag).ToList();
+            _context.Numbers.Add(number);
+        }
 
-            return _context.Contacts.Include(c => c.Tags).Include(c => c.Emails).Include(c => c.Numbers)
-                .Where(c => ContactExistsInTags(tagList, c.Id)).ToList();
+        public void DeleteNumber(Number number)
+        {
+            _context.Numbers.Remove(number);
+        }
+
+        public void UpdateNumber(Number number)
+        {
+            _context.Numbers.Update(number);
+        }
+
+        public IEnumerable<Contact> GetBookmarkedContacts()
+        {
+            return _context.Contacts.Where(c => c.Bookmarked == true).ToList();
+        }
+
+        public void UpdateBookmark(Contact contact)
+        {
+            _context.Contacts.Update(contact);
         }
 
         public IEnumerable<Tag> GetTagsForContact(int contactId)
@@ -72,7 +137,27 @@ namespace ContactList.Services
 
         public Tag GetTagForContact(int contactId, int tagId)
         {
-            throw new NotImplementedException();
+            return _context.Tags.Where(t => t.ContactId == contactId  && t.Id == tagId).FirstOrDefault();
+        }
+
+        public void CreateTag(Tag tag)
+        {
+            _context.Tags.Add(tag);
+        }
+
+        public void DeleteTag(Tag tag)
+        {
+            _context.Tags.Remove(tag);
+        }
+
+        public void UpdateTag(Tag tag)
+        {
+            _context.Tags.Update(tag);
+        }
+
+        public bool Save()
+        {
+          return (_context.SaveChanges() >= 0);
         }
     }
 }

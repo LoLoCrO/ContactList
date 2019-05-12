@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,7 +17,7 @@ namespace ContactList.Entities
         public string LastName { get; set; }
         [MaxLength(50)]
         public string Address { get; set; }
-        public bool Bookmarked { get; set; }
+    public bool? Bookmarked { get; set; }
 
         public ICollection<Email> Emails { get; set; } = new List<Email>();
         public ICollection<Number> Numbers { get; set; } = new List<Number>();

@@ -28,6 +28,15 @@
           "lib/netstandard2.0/System.Net.Http.Formatting.dll": {}
         }
       },
+      "Microsoft.AspNet.WebApi.Versioning/3.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Microsoft.AspNet.WebApi.Versioning.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.AspNet.WebApi.Versioning.dll": {}
+        }
+      },
       "Microsoft.AspNetCore/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -4487,6 +4496,21 @@
         "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.xml",
         "microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
         "microsoft.aspnet.webapi.client.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebApi.Versioning/3.0.1": {
+      "sha512": "qJYUR9e3U7C016eFJ7EMmJkzlks9q6uyirnJ6uuagUB1DVCUINsnhwUz9/CQnQktXim2rBb3nX1qKiuSDyvF5A==",
+      "type": "package",
+      "path": "microsoft.aspnet.webapi.versioning/3.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net45/Microsoft.AspNet.WebApi.Versioning.dll",
+        "lib/net45/Microsoft.AspNet.WebApi.Versioning.pdb",
+        "lib/net45/Microsoft.AspNet.WebApi.Versioning.xml",
+        "microsoft.aspnet.webapi.versioning.3.0.1.nupkg.sha512",
+        "microsoft.aspnet.webapi.versioning.nuspec"
       ]
     },
     "Microsoft.AspNetCore/2.2.0": {
@@ -12115,9 +12139,11 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "AutoMapper >= 8.1.0",
+      "Microsoft.AspNet.WebApi.Versioning >= 3.0.1",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
+      "Microsoft.AspNetCore.StaticFiles >= 2.2.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.2.4",
       "Microsoft.EntityFrameworkCore.Tools >= 2.2.4",
       "Microsoft.NETCore.App >= 2.2.0"
@@ -12168,6 +12194,10 @@
             "target": "Package",
             "version": "[8.1.0, )"
           },
+          "Microsoft.AspNet.WebApi.Versioning": {
+            "target": "Package",
+            "version": "[3.0.1, )"
+          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",
@@ -12180,6 +12210,10 @@
           },
           "Microsoft.AspNetCore.Razor.Design": {
             "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
+          "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",
             "version": "[2.2.0, )"
           },
@@ -12207,5 +12241,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebApi.Versioning 3.0.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebApi.Versioning",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    }
+  ]
 }

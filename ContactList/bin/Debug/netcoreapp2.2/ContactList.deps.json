@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "3d663939bc9544580929d50214e1bef1e150f822"
+    "signature": "1d2b7dcfa0705ffbe97d6f349925817d7b5054f2"
   },
   "compilationOptions": {
     "defines": [
@@ -25,9 +25,11 @@
       "ContactList/1.0.0": {
         "dependencies": {
           "AutoMapper": "8.1.0",
+          "Microsoft.AspNet.WebApi.Versioning": "3.0.1",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
+          "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
           "Microsoft.EntityFrameworkCore.Tools": "2.2.4",
           "Microsoft.NETCore.App": "2.2.0"
@@ -52,6 +54,17 @@
         },
         "compile": {
           "lib/netstandard2.0/AutoMapper.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebApi.Versioning/3.0.1": {
+        "runtime": {
+          "lib/net45/Microsoft.AspNet.WebApi.Versioning.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.6942.37531"
+          }
+        },
+        "compile": {
+          "lib/net45/Microsoft.AspNet.WebApi.Versioning.dll": {}
         }
       },
       "Microsoft.EntityFrameworkCore/2.2.4": {
@@ -3291,6 +3304,13 @@
       "sha512": "sha512-Go75WXHE7p/8CtRaxZnvVEfcSh7xpE6zx9wkgN4I1BxvlzP0hoiTLHSXDYXgv9CoxaRj4ahwzCA/iwdpvyQyOA==",
       "path": "automapper/8.1.0",
       "hashPath": "automapper.8.1.0.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebApi.Versioning/3.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qJYUR9e3U7C016eFJ7EMmJkzlks9q6uyirnJ6uuagUB1DVCUINsnhwUz9/CQnQktXim2rBb3nX1qKiuSDyvF5A==",
+      "path": "microsoft.aspnet.webapi.versioning/3.0.1",
+      "hashPath": "microsoft.aspnet.webapi.versioning.3.0.1.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore/2.2.4": {
       "type": "package",
